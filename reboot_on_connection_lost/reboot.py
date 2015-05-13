@@ -5,10 +5,10 @@ import sys
 from threading import Timer
 
 
-def check_connection(url='8.8.8.8', timeout=5):
+def check_connection(url='http://www.google.com', timeout=5):
     while True:
         try:
-            _ = requests.get(url, timeout=timeout)
+            requests.get(url, timeout=timeout)
             yield True
         except requests.ConnectionError:
             yield False
@@ -35,3 +35,7 @@ def main():
             timer.start()
             is_timer_running = True
         time.sleep(10)
+
+
+if __name__ == '__main__':
+    main()
