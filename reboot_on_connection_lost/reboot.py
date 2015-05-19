@@ -21,20 +21,21 @@ def shutdown():
 def main():
     is_timer_running = False
     timer = None
-    if len(sys.argv) == 2:
-        timer_duration = int(sys.argv[1])
-    else:
-        timer_duration = 3600
+    TIMER_DURATION = 3600
+    FREQUENCY_CHECK = 10
+    if len(sys.argv) == 3:
+        TIMER_DURATION = int(sys.argv[1])
+        FREQUENCY_CHECK = int(sys.argv[2])
 
     for has_connection in check_connection():
         if has_connection and is_timer_running:
             timer.cancel()
             is_timer_running = False
         elif not (has_connection or is_timer_running):
-            timer = Timer(timer_duration, shutdown)
+            timer = Timer(TIMER_DURATION, shutdown)
             timer.start()
             is_timer_running = True
-        time.sleep(10)
+        time.sleep(FREQUENCY_CHECK)
 
 
 if __name__ == '__main__':
