@@ -1,6 +1,7 @@
 import requests
 import os
 import time
+from datetime import datetime
 import sys
 from threading import Timer
 
@@ -10,12 +11,13 @@ def check_connection(url='http://www.google.com', timeout=5):
         try:
             requests.get(url, timeout=timeout)
             yield True
-        except requests.ConnectionError:
+        except Exception:
             yield False
 
 
 def shutdown():
-    os.system("shutdown now -h")
+    open('shutdown_%s.txt' % datetime.now().strftime('%Y%m%d_%H%M'), 'w').close()
+    os.system("shutdown now -r")
 
 
 def main():
