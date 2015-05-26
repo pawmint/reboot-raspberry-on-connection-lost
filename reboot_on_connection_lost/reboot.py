@@ -16,8 +16,9 @@ def check_connection(url='http://www.google.com', timeout=5):
 
 
 def shutdown():
-    open('shutdown_%s.txt' % datetime.now().strftime('%Y%m%d_%H%M'), 'w').close()
-    os.system("shutdown now -r")
+    with open("shutdown.txt", "a") as myfile:
+        myfile.write(datetime.now().strftime('%Y%m%d_%H%M\n'))
+        os.system("shutdown now -r")
 
 
 def main():
